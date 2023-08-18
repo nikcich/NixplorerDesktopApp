@@ -1,0 +1,207 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Styles for the container div */
+.drive-container {
+  height: 20px;
+  position: relative;
+  border: solid 1px #BCBCBC;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  overflow: hidden;
+  width: 250px;
+  cursor: pointer;
+  background: rgb(94, 94, 94);
+  transition: transform 200ms ease-in-out;
+}
+
+.drive-container:hover{
+  background: rgb(94, 94, 94);
+  transform: scale(110%);
+}
+
+/* Styles for the green progress bar */
+.progress-bar {
+  position: absolute;
+  background: #26A0DA;
+  height: 100%;
+  width: 100%;
+  /* The width will be adjusted using inline styles */
+  top: 0;
+  z-index: 0;
+  left: 0;
+}
+
+/* Styles for the text content */
+.drive-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  top: 0;
+  left: 0;
+  margin-left: 4px;
+  pointer-events: none;
+}
+
+/* Styling for the text elements */
+.drive-info p {
+  padding: 0;
+  margin: 0;
+}
+
+.fileFolderElement {
+  display: flex;
+  padding-left: 8px;
+  margin: 4px;
+  cursor:pointer;
+  transition: transform 200ms ease-in-out;
+  border-radius: 0.25rem;
+  text-align: left;
+}
+
+.fileFolderElement:hover{
+  background: rgb(94, 94, 94);
+  transform: scale(110%);
+}
+
+button{
+  background: none;
+  border: none;
+  height: 30px;
+  width: 50px;
+  font-size: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+  border-radius: 0.25rem;
+}
+
+button:hover{
+  transform: scale(120%);
+}
+
+.inputContainer{
+  height: 30px;
+  font-size: large;
+  padding: 0px 12px;
+  transition: transform 200ms ease-in-out;
+  transition: width 200ms ease-in-out;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+
+.searchInactive{
+  width: 30%;
+}
+
+.searchActive{
+  width: 70%;
+}
+
+.searchNeutral{
+  width: 50%;
+}
+
+.pathSearch{
+  border-radius: 0.5rem 0 0 0.5rem;
+  border: 1px solid #ccc;
+  border-right: none;
+}
+
+.fileSearch{
+  border-radius: 0 0.5rem 0.5rem 0;
+  border: 1px solid #ccc;
+}
+
+input:focus{
+  outline: none;
+}
+
+/* styles.css */
+.context-menu {
+  position: fixed;
+  background-color: rgb(53, 52, 52);
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  color: white;
+  border-radius: 0.25rem;
+}
+
+.context-menu-option{
+  padding: 8px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 100ms ease-in-out;
+}
+
+.optionZebra {
+  background: rgba(255,255, 255, 0.1);
+}
+
+.context-menu-option:hover {
+  background: rgba(255, 221, 52, 0.2);
+}
+
+.loadMoreButton{
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  background: rgb(87, 87, 87);
+  margin-top: 16px;
+  margin-left: 16px;
+}
+
+.showingText{
+  width: 200px;
+  margin-left: 16px;
+  text-align: left;
+}

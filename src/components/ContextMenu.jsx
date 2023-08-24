@@ -20,7 +20,7 @@ const ContextMenu = ({ isVisible, top, left, onClose, options, f }) => {
   return (
     <div className="context-menu" style={{ top, left }}>
       {options.map((option, index) => (
-        <div key={index} className={"context-menu-option " + (index%2 == 1 ? "optionZebra":"")} onClick={() => onClose(option.action, f)}>
+        <div key={index} className={"context-menu-option " + (index % 2 == 1 ? "optionZebra" : "")} onClick={() => onClose(option.action, f)}>
           {option.label}
         </div>
       ))}

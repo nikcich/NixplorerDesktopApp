@@ -1,5 +1,11 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const { ChildProcessWithoutNullStreams } = require('child_process');
+const { spawn } = require('child_process');
+const childProcess = require('child_process');
+
+let child;
+
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -11,25 +17,41 @@ const createWindow = () => {
         },
     });
 
-    // win.setMenu(null);
+    win.loadFile(path.join(__dirname, '../dist/index.html'));
 
-    win.loadURL('http://localhost:5173'); // index.html
+    win.webContents.openDevTools();
+    //win.setMenu(null);
+
+    win.webContents.on('did-finish-load', () => {
+        win.webContents.send('request-data');
+    });
+
+    ipcMain.on('data-response', (event, data) => {
+        const port = data.port;
+        const jarPath = path.join(__dirname, 'explorer-0.0.1-SNAPSHOT.jar');
+        const javaExecutable = 'java'; // Adjust the Java executable path as needed
+        child = childProcess.spawn(javaExecutable, ['-jar', jarPath, '--port=' + port]);
+    });
+
+
 }
 
 app.whenReady().then(() => {
     createWindow();
-
     app.on('activate', () => {
-
-        window.electronData = {
-            port: "nik was here",
-        };
-
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
     });
 });
 
+app.commandLine.appendSwitch('disable-web-security');
+
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit();
+    if (child) {
+        const kill = require('tree-kill');
+        kill(child.pid);
+    }
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
 })
 

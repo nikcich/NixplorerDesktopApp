@@ -4,12 +4,14 @@ import Drive from './Drive';
 import { useExplorerContext } from '../Context';
 import Results from './Results';
 import SvgSpinners90RingWithBg from './SvgSpinners90RingWithBg';
+import useFetchUrl from '../util/fetchUrl';
 
 function Explorer(props) {
     const input = useRef();
     const base = useRef();
     const [isInput1Focused, setInput1Focused] = useState(false);
     const [isInput2Focused, setInput2Focused] = useState(false);
+    const [fetchUrl, loading] = useFetchUrl();
 
     const {
         fetchFileSystemData, openFile, handleContextMenu, setFileProperties,
@@ -37,7 +39,7 @@ function Explorer(props) {
             });
 
             setSearching(true);
-            const response = await fetch(`http://localhost:8081/explorer/search?${queryParams}`);
+            const response = await fetch(`${fetchUrl}/explorer/search?${queryParams}`);
             const jsonData = await response.json();
             setSearching(false);
             setSearchResults(jsonData);

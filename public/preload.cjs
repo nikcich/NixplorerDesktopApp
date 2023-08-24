@@ -1,5 +1,5 @@
 const net = require('net');
-const { contextBridge } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 
 
 function findUnusedPort(startingPort, callback) {
@@ -35,9 +35,20 @@ getUnusedPort((err, port) => {
     }
     console.log('Unused port:', port);
 
-    contextBridge.exposeInMainWorld('myPreloadData', {
-        value: `http://localhost:${8081}`
-        // value: `http://localhost:${port}`
+    // contextBridge.exposeInMainWorld('myPreloadData', {
+    //     value: `http://localhost:${8081}`
+    //     // value: `http://localhost:${port}`
+    // });
+
+    console.log("writing port...");
+    let d = {
+        value: `http://localhost:${port}`,
+        port: port
+    };
+    contextBridge.exposeInMainWorld('myPreloadData', d);
+
+    ipcRenderer.on('request-data', () => {
+        ipcRenderer.send('data-response', d);
     });
 });
 

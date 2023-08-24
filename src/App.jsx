@@ -45,10 +45,19 @@ function App() {
     if (target.getAttribute("data-file")) {
       let dataFile = JSON.parse(target.getAttribute("data-file"));
       let type = dataFile.type;
-      const options = [
+      let options = [
         { label: type == "FOLDER" ? 'Open Folder In Windows Explorer' : 'Open File', action: 'open' },
         { label: 'Properties', action: 'properties' },
       ];
+
+      if (type == "FILE") {
+        options.splice(1, 0, {
+          label: "Open File Location", action: 'openLocation'
+        });
+      }
+
+
+
       setContextMenu({ isVisible: true, top: e.clientY, left: e.clientX, options, f: dataFile });
     } else {
       const empty = [];
@@ -108,11 +117,25 @@ function App() {
     }
   }
 
+  const openFileLocation = async (f) => {
+    let p = f.parent.split('\\');
+    let name = p.pop();
+    p = p.join('\\');
+    const parent = {
+      root: f.root,
+      parent: p,
+      name: name
+    }
+    return await openFile(parent);
+  }
+
   const handleContextMenuClose = async (action, f) => {
     if (action == "open" && f != null && f != undefined) {
       await openFile(f);
     } else if (action == "properties" && f != null && f != undefined) {
       await fetchFileProperties(f);
+    } else if (action == "openLocation" && f != null && f != undefined) {
+      await openFileLocation(f);
     }
 
     setContextMenu({ isVisible: false, top: 0, left: 0, options: [], f: null });
